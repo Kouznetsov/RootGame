@@ -20,6 +20,7 @@ public class MapManager : MonoBehaviour
     private int _endNode;
     private readonly System.Random _rnd = new();
     private readonly List<Node> _instances = new();
+    private List<int> _lastLocked = new();
     private Node _startInstance;
     private Node _endInstance;
 
@@ -82,18 +83,41 @@ public class MapManager : MonoBehaviour
         _endInstance.transform.position = currentPosition;
     }
 
+
     public void CollectGarbage(int amount)
     {
-        var nodes = _instances.OrderBy(x => _rnd.Next()).Take(amount);
+        var indices = new List<int>();
+
+        for (var i = 0; i < _instances.Count; i++)
+        {
+            if (!_lastLocked.Contains(i))
+                indices.Add(i);
+        }
+
+        var chosenIndices = indices.OrderBy(x => _rnd.Next()).Take(amount);
+        _lastLocked.Clear();
+        _lastLocked.AddRange(chosenIndices);
 
         foreach (var node in _instances)
-        {
             node.Unlock();
-        }
-        foreach (var node in nodes)
+        for (var i = 0; i < _instances.Count; i++)
         {
-            node.Lock();
+            if (_lastLocked.Contains(i))
+                _instances[i].Lock();
         }
+
+        // var nodes = _instances.OrderBy(x => _rnd.Next()).Take(amount);
+        //
+        // foreach (var node in _instances)
+        // {
+        //     node.Unlock();
+        // }
+        //
+        // foreach (var node in nodes)
+        // {
+        //     node.Lock();
+        // }
+
         CheckConducting();
     }
 

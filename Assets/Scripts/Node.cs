@@ -30,11 +30,14 @@ public class Node : MonoBehaviour
             _locksLeft--;
             CameraShakeManager.instance.Shake((5 - _locksLeft));
             if (_locksLeft <= 0)
+            {
                 Unlock();
+                SetState(1, true);
+            }
         }
         else
         {
-            SetNextState();
+            SetState(1, true);
         }
     }
 
