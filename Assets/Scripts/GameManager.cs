@@ -35,6 +35,11 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1;
     }
 
+    public int GetTimeLeft()
+    {
+        return Mathf.FloorToInt(_timeLeft);
+    }
+
     private void Update()
     {
         if (mapManager.isFluxGoingThrough && !_gameEnded)

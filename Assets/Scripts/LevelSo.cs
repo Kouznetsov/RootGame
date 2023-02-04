@@ -5,7 +5,7 @@ namespace Data
     [CreateAssetMenu(fileName = "Level", menuName = "Levels/New Level", order = 1)]
     public class LevelSo : ScriptableObject
     {
-        public string levelName;
+        public int levelIndex;
         public int width;
         public int height;
         public int gcValue;

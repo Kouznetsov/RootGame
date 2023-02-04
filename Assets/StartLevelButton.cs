@@ -18,6 +18,6 @@ public class StartLevelButton : MonoBehaviour
     public void Init(LevelSo level)
     {
         _levelSo = level;
-        levelName.text = _levelSo.name;
+        levelName.text = $"level {_levelSo.levelIndex}";
     }
 }
