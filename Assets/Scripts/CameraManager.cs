@@ -5,7 +5,7 @@ using UnityEngine;
 public class CameraManager : MonoBehaviour
 {
     [SerializeField] private Transform camFocus;
-    [SerializeField] private MapGenerator mapGenerator;
+    [SerializeField] private MapManager mapManager;
     private CinemachineVirtualCamera _vcam;
     private CinemachineTransposer _transposer;
 
@@ -17,12 +17,12 @@ public class CameraManager : MonoBehaviour
 
     private void OnEnable()
     {
-        mapGenerator.OnMapGenerated += OnMapGenerated;
+        mapManager.OnMapGenerated += OnMapGenerated;
     }
 
     private void OnDisable()
     {
-        mapGenerator.OnMapGenerated += OnMapGenerated;
+        mapManager.OnMapGenerated += OnMapGenerated;
     }
 
     private void OnMapGenerated(int w, int h, float nodeSize, float gap)
@@ -34,6 +34,6 @@ public class CameraManager : MonoBehaviour
         focusPosition.x = (w - 1) * (nodeSize + gap) / 2f;
         focusPosition.z = (h - 1) * (nodeSize + gap) / 2f;
         camFocusTransform.position = focusPosition;
-        _transposer.m_FollowOffset.y = Mathf.Max(h, w) * 3;
+        _transposer.m_FollowOffset.y = Mathf.Max(h, w) * 3.5f;
     }
 }
