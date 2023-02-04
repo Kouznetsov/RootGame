@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Data;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -13,6 +14,7 @@ public class MapManager : MonoBehaviour
     [SerializeField] private float gap;
     [SerializeField] private int width;
     [SerializeField] private int height;
+    public static LevelSo levelSo;
 
     public bool isFluxGoingThrough => _endInstance.isConducting;
 
@@ -33,6 +35,8 @@ public class MapManager : MonoBehaviour
 
     private void Start()
     {
+        height = levelSo.height;
+        width = levelSo.width;
         Generate();
     }
 

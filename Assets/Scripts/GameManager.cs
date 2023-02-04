@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using Data;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -8,40 +9,30 @@ public class GameManager : MonoBehaviour
 {
     [SerializeField] private TMP_Text gcTimerTxt;
     [SerializeField] private TMP_Text timeLeftTxt;
-    [SerializeField] private TMP_Text hitsLeftTxt;
     [SerializeField] private Slider fillSlider;
     [SerializeField] private int gcValue;
     [SerializeField] private int gcFrequency;
     [SerializeField] private int maxTime;
-    [SerializeField] private int authorizedHits;
     [SerializeField] private float fillBarBySecond;
     [SerializeField] private MapManager mapManager;
+    public static LevelSo levelSo;
 
     private bool _gameEnded;
     private float _timeLeft;
     private float _timeBeforeGC;
-    private int _hitsLeft;
 
     private void Start()
     {
+        gcValue = levelSo.gcValue;
+        gcFrequency = levelSo.gcFrequency;
+        maxTime = levelSo.maxTime;
+        fillBarBySecond = levelSo.fillBarBySeconds;
         fillSlider.value = 0;
         _timeBeforeGC = gcFrequency;
         _timeLeft = maxTime;
-        _hitsLeft = authorizedHits;
-        hitsLeftTxt.text = $"{_hitsLeft}";
         StartCoroutine(GameTimer());
         StartCoroutine(GCTimer());
         Time.timeScale = 1;
-    }
-
-    private void OnEnable()
-    {
-        mapManager.OnMapAltered += OnMapAltered;
-    }
-
-    private void OnDisable()
-    {
-        mapManager.OnMapAltered -= OnMapAltered;
     }
 
     private void Update()
@@ -68,14 +59,6 @@ public class GameManager : MonoBehaviour
         _gameEnded = true;
         Debug.Log("Lost");
         Time.timeScale = 0;
-    }
-
-    private void OnMapAltered()
-    {
-        // _hitsLeft -= 1;
-        if (_hitsLeft <= 0)
-            Lose();
-        hitsLeftTxt.text = $"{_hitsLeft}";
     }
 
     private IEnumerator GameTimer()
