@@ -24,6 +24,7 @@ public class Node : MonoBehaviour
 
     public void OnClick()
     {
+        NodeClickSounds.instance.PlaySound();
         if (_isLocked)
         {
             // hit !
@@ -41,10 +42,6 @@ public class Node : MonoBehaviour
         }
     }
 
-    public void SetNextState()
-    {
-        SetState(_stateIndex + 1 >= possibleStates.Count ? 0 : _stateIndex + 1, true);
-    }
 
     public void Lock()
     {
@@ -78,7 +75,6 @@ public class Node : MonoBehaviour
             return;
         }
 
-        Debug.Log($"I have {_neighbours.Count} neighbours");
         foreach (var neighbour in _neighbours)
         {
             if (neighbour.isConducting &&
