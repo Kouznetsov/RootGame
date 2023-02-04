@@ -12,7 +12,8 @@ public class ClickDetector : MonoBehaviour
             var ray = camera.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(ray, out var hit, Mathf.Infinity, nodeLayerMask))
             {
-                Debug.Log("Collided with a node !");
+                var node = hit.collider.GetComponent<Node>();
+                node.SetNextState();
             }
         }
     }
