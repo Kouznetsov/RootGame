@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c93b0ec3f26e468281d56341ec0db44, type: 3}
   m_Name: Level 4
   m_EditorClassIdentifier: 
-  levelName: 4
-  width: 6
-  height: 6
-  gcValue: 6
+  levelIndex: 3
+  width: 3
+  height: 3
+  gcValue: 2
   gcFrequency: 3
-  maxTime: 60
-  fillBarBySeconds: 15
+  maxTime: 20
+  fillBarBySeconds: 25

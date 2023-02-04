@@ -33,8 +33,8 @@ public class WinScreen : MonoBehaviour
         else
         {
             var currentLevel = MapManager.levelSo; 
-            MapManager.levelSo = levelsListSo.levelsList[currentLevel.levelIndex];
-            GameManager.levelSo = levelsListSo.levelsList[currentLevel.levelIndex];
+            MapManager.levelSo = levelsListSo.levelsList[currentLevel.levelIndex + 1];
+            GameManager.levelSo = levelsListSo.levelsList[currentLevel.levelIndex + 1];
             SceneManager.LoadScene("Game");
         }
     }

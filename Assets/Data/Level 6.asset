@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3c93b0ec3f26e468281d56341ec0db44, type: 3}
-  m_Name: Level 5
+  m_Name: Level 6
   m_EditorClassIdentifier: 
-  levelIndex: 4
+  levelIndex: 5
   width: 6
   height: 6
   gcValue: 8
   gcFrequency: 3
-  maxTime: 50
+  maxTime: 30
   fillBarBySeconds: 10

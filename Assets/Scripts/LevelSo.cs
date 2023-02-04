@@ -12,5 +12,7 @@ namespace Data
         public int gcFrequency;
         public int maxTime;
         public int fillBarBySeconds;
+        public int endIndex = -1;
+        public int startIndex = -1;
     }
 }

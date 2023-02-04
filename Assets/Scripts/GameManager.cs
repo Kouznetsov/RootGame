@@ -15,6 +15,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private int maxTime;
     [SerializeField] private float fillBarBySecond;
     [SerializeField] private MapManager mapManager;
+    [SerializeField] private GameObject winScreen;
+    [SerializeField] private GameObject loseScreen;
     public static LevelSo levelSo;
 
     private bool _gameEnded;
@@ -56,6 +58,7 @@ public class GameManager : MonoBehaviour
         _gameEnded = true;
         Debug.Log("You won");
         Time.timeScale = 0;
+        winScreen.SetActive(true);
     }
 
     private void Lose()
@@ -64,6 +67,7 @@ public class GameManager : MonoBehaviour
         _gameEnded = true;
         Debug.Log("Lost");
         Time.timeScale = 0;
+        loseScreen.SetActive(true);
     }
 
     private IEnumerator GameTimer()

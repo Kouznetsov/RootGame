@@ -72,9 +72,8 @@ public class MapManager : MonoBehaviour
     private void GenerateStartAndEnd()
     {
         var currentPosition = Vector3.zero;
-        _startNode = Random.Range(0, width - 1);
-        _endNode = Random.Range(0, width - 1);
-
+        _startNode = levelSo.startIndex < 0 ? Random.Range(0, width - 1) : levelSo.startIndex;
+        _endNode = levelSo.endIndex < 0 ? Random.Range(0, width - 1) : levelSo.endIndex;
         _startInstance = Instantiate(startPrefab).GetComponent<Node>();
         _startInstance.mapManager = this;
         _endInstance = Instantiate(endPrefab).GetComponent<Node>();
