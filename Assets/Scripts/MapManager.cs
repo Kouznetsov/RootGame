@@ -86,11 +86,15 @@ public class MapManager : MonoBehaviour
     {
         var nodes = _instances.OrderBy(x => _rnd.Next()).Take(amount);
 
+        foreach (var node in _instances)
+        {
+            node.Unlock();
+        }
         foreach (var node in nodes)
         {
             node.Lock();
-            CheckConducting();
         }
+        CheckConducting();
     }
 
     public void Generate()

@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 public class Node : MonoBehaviour
 {
@@ -15,11 +14,28 @@ public class Node : MonoBehaviour
     private int _stateIndex;
     private Material _material;
     public List<Node> _neighbours = new();
+    private int _locksLeft;
 
-    private void Start()
+    private void Awake()
     {
         _material = GetComponent<MeshRenderer>().material;
-        SetState(Random.Range(0, possibleStates.Count), false);
+        SetState(0, false);
+    }
+
+    public void OnClick()
+    {
+        if (_isLocked)
+        {
+            // hit !
+            _locksLeft--;
+            CameraShakeManager.instance.Shake((5 - _locksLeft));
+            if (_locksLeft <= 0)
+                Unlock();
+        }
+        else
+        {
+            SetNextState();
+        }
     }
 
     public void SetNextState()
@@ -29,9 +45,20 @@ public class Node : MonoBehaviour
 
     public void Lock()
     {
+        _locksLeft = 3;
         _isLocked = true;
         isConducting = false;
         _material.color = Color.black;
+    }
+
+    public void Unlock()
+    {
+        if (!_isLocked)
+            return;
+        _locksLeft = 0;
+        _isLocked = false;
+        isConducting = false;
+        SetState(0, false);
     }
 
     public void CheckConduction()

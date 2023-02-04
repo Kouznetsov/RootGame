@@ -72,7 +72,7 @@ public class GameManager : MonoBehaviour
 
     private void OnMapAltered()
     {
-        _hitsLeft -= 1;
+        // _hitsLeft -= 1;
         if (_hitsLeft <= 0)
             Lose();
         hitsLeftTxt.text = $"{_hitsLeft}";
@@ -91,6 +91,7 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator GCTimer()
     {
+        mapManager.CollectGarbage(gcValue);
         while (!_gameEnded)
         {
             gcTimerTxt.text = $"{_timeBeforeGC}";

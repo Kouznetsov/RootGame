@@ -1540,8 +1540,8 @@ MonoBehaviour:
   timeLeftTxt: {fileID: 205717666}
   hitsLeftTxt: {fileID: 734858605}
   fillSlider: {fileID: 2021205009}
-  gcValue: 2
-  gcFrequency: 5
+  gcValue: 8
+  gcFrequency: 3
   maxTime: 60
   authorizedHits: 30
   fillBarBySecond: 10
@@ -1560,7 +1560,7 @@ GameObject:
   - component: {fileID: 963194229}
   - component: {fileID: 963194230}
   m_Layer: 0
-  m_Name: Main Camera
+  m_Name: Cinemachine Brain
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1710,6 +1710,7 @@ GameObject:
   - component: {fileID: 1086494392}
   - component: {fileID: 1086494393}
   - component: {fileID: 1086494394}
+  - component: {fileID: 1086494395}
   m_Layer: 0
   m_Name: cm
   m_TagString: Untagged
@@ -1766,6 +1767,23 @@ MonoBehaviour:
   m_YawDamping: 0
   m_RollDamping: 0
   m_AngularDamping: 0
+--- !u!114 &1086494395
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1086494391}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68bb026fafb42b14791938953eaace77, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_NoiseProfile: {fileID: 11400000, guid: 69ce8388f6785dd4c8c39915efece2f4, type: 2}
+  m_PivotOffset: {x: 0, y: 0, z: 0}
+  m_AmplitudeGain: 0
+  m_FrequencyGain: 1
+  mNoiseOffsets: {x: 0, y: 0, z: 0}
 --- !u!1 &1512378619
 GameObject:
   m_ObjectHideFlags: 0
@@ -2229,6 +2247,7 @@ GameObject:
   - component: {fileID: 2017777536}
   - component: {fileID: 2017777535}
   - component: {fileID: 2017777537}
+  - component: {fileID: 2017777538}
   m_Layer: 0
   m_Name: Camera
   m_TagString: Untagged
@@ -2304,6 +2323,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   camFocus: {fileID: 1885720667}
   mapManager: {fileID: 793938466}
+--- !u!114 &2017777538
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2017777534}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a21086aff23d43388e1f742cc4c9ec2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2021205007
 GameObject:
   m_ObjectHideFlags: 0
