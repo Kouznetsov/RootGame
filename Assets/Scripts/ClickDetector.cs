@@ -13,8 +13,9 @@ public class ClickDetector : MonoBehaviour
             if (Physics.Raycast(ray, out var hit, Mathf.Infinity, nodeLayerMask))
             {
                 var node = hit.collider.GetComponent<Node>();
-                
-                node.OnClick();
+
+                if (node != null)
+                    node.OnClick();
             }
         }
     }

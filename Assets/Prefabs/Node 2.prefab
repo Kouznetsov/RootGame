@@ -123,6 +123,8 @@ MonoBehaviour:
   isEnd: 0
   isConducting: 0
   _neighbours: []
+  rotationOnTouch: {x: 90, y: 0, z: 0}
+  bumpValue: 1
 --- !u!54 &6296662579751970158
 Rigidbody:
   m_ObjectHideFlags: 0

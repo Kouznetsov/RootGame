@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using Data;
 using TMPro;
@@ -17,7 +16,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private MapManager mapManager;
     [SerializeField] private GameObject winScreen;
     [SerializeField] private GameObject loseScreen;
-    public static LevelSo levelSo;
+    [SerializeField] private Image fillBar;
+    public static LevelSo LevelSo;
 
     private bool _gameEnded;
     private float _timeLeft;
@@ -25,10 +25,11 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        gcValue = levelSo.gcValue;
-        gcFrequency = levelSo.gcFrequency;
-        maxTime = levelSo.maxTime;
-        fillBarBySecond = levelSo.fillBarBySeconds;
+        fillBar.fillAmount = 0;
+        gcValue = LevelSo.gcValue;
+        gcFrequency = LevelSo.gcFrequency;
+        maxTime = LevelSo.maxTime;
+        fillBarBySecond = LevelSo.fillBarBySeconds;
         fillSlider.value = 0;
         _timeBeforeGC = gcFrequency;
         _timeLeft = maxTime;
@@ -46,9 +47,12 @@ public class GameManager : MonoBehaviour
     {
         if (mapManager.isFluxGoingThrough && !_gameEnded)
         {
-            fillSlider.value += fillBarBySecond * Time.deltaTime;
-            if (fillSlider.value >= fillSlider.maxValue)
+            fillBar.fillAmount += (fillBarBySecond / 100) * Time.deltaTime;
+            if (fillBar.fillAmount > .999f)
                 Win();
+            // fillSlider.value += fillBarBySecond * Time.deltaTime;
+            // if (fillSlider.value >= fillSlider.maxValue)
+            // Win();
         }
     }
 
@@ -78,6 +82,7 @@ public class GameManager : MonoBehaviour
             yield return new WaitForSeconds(1);
             _timeLeft -= 1;
         }
+
         Lose();
     }
 

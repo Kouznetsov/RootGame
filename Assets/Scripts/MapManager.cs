@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Data;
 using UnityEngine;
-using Random = UnityEngine.Random;
+using Random = System.Random;
 
 public class MapManager : MonoBehaviour
 {
@@ -15,12 +15,13 @@ public class MapManager : MonoBehaviour
     [SerializeField] private int width;
     [SerializeField] private int height;
     public static LevelSo levelSo;
+    public static MapManager instance;
 
     public bool isFluxGoingThrough => _endInstance.isConducting;
 
     private int _startNode;
     private int _endNode;
-    private readonly System.Random _rnd = new();
+    private readonly Random _rnd = new();
     private readonly List<Node> _instances = new();
     private List<int> _lastLocked = new();
     private Node _startInstance;
@@ -32,6 +33,11 @@ public class MapManager : MonoBehaviour
 
     public MapGeneratedEvent OnMapGenerated;
     public MapAlteredEvent OnMapAltered;
+
+    private void Awake()
+    {
+        instance = this;
+    }
 
     private void Start()
     {
@@ -72,8 +78,8 @@ public class MapManager : MonoBehaviour
     private void GenerateStartAndEnd()
     {
         var currentPosition = Vector3.zero;
-        _startNode = levelSo.startIndex < 0 ? Random.Range(0, width - 1) : levelSo.startIndex;
-        _endNode = levelSo.endIndex < 0 ? Random.Range(0, width - 1) : levelSo.endIndex;
+        _startNode = levelSo.startIndex < 0 ? UnityEngine.Random.Range(0, width - 1) : levelSo.startIndex;
+        _endNode = levelSo.endIndex < 0 ? UnityEngine.Random.Range(0, width - 1) : levelSo.endIndex;
         _startInstance = Instantiate(startPrefab).GetComponent<Node>();
         _startInstance.mapManager = this;
         _endInstance = Instantiate(endPrefab).GetComponent<Node>();
@@ -86,6 +92,13 @@ public class MapManager : MonoBehaviour
         _endInstance.transform.position = currentPosition;
     }
 
+    public void ClearBumps()
+    {
+        foreach (var node in _instances)
+        {
+            node.ClearBumpedStatus();
+        }
+    }
 
     public void CollectGarbage(int amount)
     {
@@ -108,19 +121,6 @@ public class MapManager : MonoBehaviour
             if (_lastLocked.Contains(i))
                 _instances[i].Lock();
         }
-
-        // var nodes = _instances.OrderBy(x => _rnd.Next()).Take(amount);
-        //
-        // foreach (var node in _instances)
-        // {
-        //     node.Unlock();
-        // }
-        //
-        // foreach (var node in nodes)
-        // {
-        //     node.Lock();
-        // }
-
         CheckConducting();
     }
 

@@ -1,5 +1,7 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
 
 public class Node : MonoBehaviour
@@ -15,6 +17,14 @@ public class Node : MonoBehaviour
     private Material _material;
     public List<Node> _neighbours = new();
     private int _locksLeft;
+    [SerializeField] private Vector3 rotationOnTouch;
+    [SerializeField] private float bumpValue;
+    private bool _wasBumped;
+
+    public void ClearBumpedStatus()
+    {
+        _wasBumped = false;
+    }
 
     private void Awake()
     {
@@ -29,7 +39,7 @@ public class Node : MonoBehaviour
         {
             // hit !
             _locksLeft--;
-            CameraShakeManager.instance.Shake((5 - _locksLeft));
+            CameraShakeManager.instance.Shake(5 - _locksLeft);
             if (_locksLeft <= 0)
             {
                 Unlock();
@@ -38,7 +48,27 @@ public class Node : MonoBehaviour
         }
         else
         {
-            SetState(1, true);
+            if (!isPlayerState)
+            {
+                if (mapManager == null)
+                    mapManager = MapManager.instance;
+                mapManager.ClearBumps();
+                SetState(1, true);
+                StartCoroutine(Bump(bumpValue));
+            }
+        }
+    }
+
+    private IEnumerator Bump(float value)
+    {
+        if (_wasBumped)
+            yield break;
+        _wasBumped = true;
+        // transform.DOLocalJump(transform.position, -value, 1, .3f, false);
+        yield return new WaitForSeconds(.05f);
+        foreach (var neighbour in _neighbours)
+        {
+            StartCoroutine(neighbour.Bump(value * .7f));
         }
     }
 
@@ -108,6 +138,7 @@ public class Node : MonoBehaviour
             return;
         _stateIndex = stateIndex;
         _material.color = possibleStates[stateIndex].color;
+        // _material.DOColor(possibleStates[stateIndex].color, .3f);
         if (byPlayer)
             mapManager.OnMapAltered?.Invoke();
     }
