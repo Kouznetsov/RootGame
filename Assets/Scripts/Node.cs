@@ -23,9 +23,10 @@ public class Node : MonoBehaviour
     public List<Node> _neighbours = new();
     private int _locksLeft;
     [SerializeField] private float bumpValue;
-    private Vector3 _initialPosition;
+    public Vector3 initialPosition;
     private bool _wasBumped;
     private static readonly int BaseMap = Shader.PropertyToID("_BaseMap");
+    [SerializeField] private List<GameObject> glowSticks;
 
     public void ClearBumpedStatus()
     {
@@ -40,7 +41,11 @@ public class Node : MonoBehaviour
 
     private void Start()
     {
-        _initialPosition = transform.position;
+        initialPosition = transform.position;
+        foreach (var glowStick in glowSticks)
+        {
+            glowStick.SetActive(false);
+        }
     }
 
     public void OnClick()
@@ -67,6 +72,7 @@ public class Node : MonoBehaviour
                     HapticFeedback.HeavyFeedback();
                     break;
             }
+
             NodeClickSounds.instance.PlayBlackSound(_locksLeft);
             _locksLeft--;
             transform.DOShakePosition(.3f, (4 - _locksLeft) * .1f, 50, 45);
@@ -105,12 +111,16 @@ public class Node : MonoBehaviour
         }
 
         yield return new WaitForSeconds(.3f);
-        transform.position = _initialPosition;
+        transform.position = initialPosition;
     }
 
 
     public void Lock()
     {
+        foreach (var glowStick in glowSticks)
+        {
+            glowStick.SetActive(false);
+        }
         _locksLeft = 3;
         _isLocked = true;
         isConducting = false;
@@ -152,12 +162,25 @@ public class Node : MonoBehaviour
             }
         }
 
+        foreach (var glowStick in glowSticks)
+        {
+            glowStick.SetActive(false);
+        }
+        
         if (isConducting)
-            foreach (var neighbour in _neighbours)
+        {
+            for (var i = 0; i < _neighbours.Count; i++)
             {
+                var neighbour = _neighbours[i];
                 if (neighbour.isPlayerState)
+                {
                     neighbour.isConducting = true;
+                    glowSticks[i].SetActive(true);
+                    glowSticks[i].GetComponentInChildren<MeshRenderer>().material.color = Color.green;
+                    glowSticks[i].transform.LookAt(neighbour.initialPosition);
+                }
             }
+        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -167,6 +190,16 @@ public class Node : MonoBehaviour
             var n = other.GetComponent<Node>();
             if (n != null)
                 _neighbours.Add(n);
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Node"))
+        {
+            var n = other.GetComponent<Node>();
+            if (n != null)
+                _neighbours.Remove(n);
         }
     }
 
