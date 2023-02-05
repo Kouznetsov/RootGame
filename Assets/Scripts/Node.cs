@@ -93,7 +93,7 @@ public class Node : MonoBehaviour
 
     private IEnumerator Bump(float value)
     {
-        if (_wasBumped || value < .2f)
+        if (_wasBumped || value < .1f)
             yield break;
         _wasBumped = true;
         var oldPos = transform.position;
