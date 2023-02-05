@@ -118,6 +118,9 @@ MonoBehaviour:
     state: 0
   - color: {r: 0, g: 1, b: 0.075618744, a: 1}
     state: 1
+  smallCracks: {fileID: 2800000, guid: 8eb3e35d1389e4ee1809f3b077827cb3, type: 3}
+  bigCracks: {fileID: 2800000, guid: 9b8d8d91eebb646c68169391da63f814, type: 3}
+  blackXplosion: {fileID: 852630279948155372, guid: cc0844ec231c9457d80ffd9bff016e98, type: 3}
   mapManager: {fileID: 0}
   isStart: 0
   isEnd: 0

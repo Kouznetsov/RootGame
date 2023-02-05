@@ -34,6 +34,6 @@ public class CameraManager : MonoBehaviour
         focusPosition.x = (w - 1) * (nodeSize + gap) / 2f;
         focusPosition.z = (h - 1) * (nodeSize + gap) / 2f;
         camFocusTransform.position = focusPosition;
-        _transposer.m_FollowOffset.y = Mathf.Max(h, w) * 3.5f;
+        _transposer.m_FollowOffset.y = Mathf.Max(h, w) * 1.5f;
     }
 }

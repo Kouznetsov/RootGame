@@ -12,10 +12,10 @@ public class MapManager : MonoBehaviour
     [SerializeField] private Node endPrefab;
     [SerializeField] private float nodeSize;
     [SerializeField] private float gap;
+    [SerializeField] private ParticleSystem blackXplosion;
     [SerializeField] private int width;
     [SerializeField] private int height;
     public static LevelSo levelSo;
-    public static MapManager instance;
 
     public bool isFluxGoingThrough => _endInstance.isConducting;
 
@@ -33,11 +33,6 @@ public class MapManager : MonoBehaviour
 
     public MapGeneratedEvent OnMapGenerated;
     public MapAlteredEvent OnMapAltered;
-
-    private void Awake()
-    {
-        instance = this;
-    }
 
     private void Start()
     {
@@ -138,6 +133,7 @@ public class MapManager : MonoBehaviour
                 currentPosition.z = (y + y * gap) * nodeSize;
                 var toAdd = Instantiate(nodePrefab, currentPosition, Quaternion.identity);
                 toAdd.mapManager = this;
+                toAdd.blackXplosion = blackXplosion;
                 _instances.Add(toAdd);
             }
         }
