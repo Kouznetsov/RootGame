@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class StartLevelButton : MonoBehaviour
 {
-    private LevelSo _levelSo;
+    public LevelSo _levelSo;
     [SerializeField] private TMP_Text levelName;
 
     public void OnPress()
