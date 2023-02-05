@@ -5,14 +5,9 @@ using UnityEngine.SceneManagement;
 
 public class WinScreen : MonoBehaviour
 {
-    [SerializeField] private TMP_Text seconds;
     [SerializeField] private GameManager gameManager;
     [SerializeField] private LevelsListSo levelsListSo;
     
-    private void Start()
-    {
-        seconds.text = $"{gameManager.GetTimeLeft()}";
-    }
 
     public void OnHomePress()
     {

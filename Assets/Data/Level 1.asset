@@ -16,6 +16,8 @@ MonoBehaviour:
   width: 1
   height: 3
   gcValue: 0
-  gcFrequency: 5
+  gcFrequency: 666666
   maxTime: 20
   fillBarBySeconds: 25
+  endIndex: -1
+  startIndex: -1
